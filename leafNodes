@@ -1,0 +1,113 @@
+package treepractice;
+import java.util.*;
+
+public class leaf {
+	
+	static class Node
+	{
+		int key;
+		Node left,right;
+		
+		Node(int item)
+		{
+			key = item;
+			left =right= null;
+		}
+	}
+	
+	Node root;
+	
+	leaf()
+	{
+		root = null;
+	}
+	
+	void insert(int key)
+	{
+		root = insertRec(root,key);
+	}
+	
+	Node insertRec(Node root, int key)
+	{
+		if(root == null)
+		{
+			root = new Node(key);
+			return root;
+		}
+		
+		if(key < root.key)
+		{
+			root.left = insertRec(root.left,key); 
+		}
+		
+		if(key > root.key)
+		{
+			root.right = insertRec(root.right,key);
+		}
+		
+		return root;
+	}
+	
+	void bottom()
+	{
+		bottomRec(root);
+	}
+	
+	void bottomRec(Node root)
+	{
+		if(root == null)
+		{
+			return;
+		}
+		
+		else
+		{
+			if(root.left != null)
+			{
+				bottomRec(root.left);
+			}
+			
+			if(root.right != null)
+			{
+				bottomRec(root.right);
+			}
+			
+			else
+			{
+				System.out.print(root.key+" ");
+			}	
+		}
+	}
+	
+	void inorder()
+	{
+		inorderRec(root);
+	}
+	
+	void inorderRec(Node root)
+	{
+		if(root != null)
+		{
+			inorderRec(root.left);
+			System.out.print(root.key+" ");
+			inorderRec(root.right);
+		}
+	}
+	
+	public static void main(String args[])
+	{
+		leaf tree = new leaf();
+		
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter size: ");
+		int n= sc.nextInt();
+		for(int i=0;i<n;i++)
+		{
+			tree.insert(sc.nextInt());
+		}
+		
+		tree.inorder();
+		System.out.println(" ");
+		tree.bottom();
+	}
+}
